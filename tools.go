@@ -3,7 +3,7 @@ package apipe
 import (
 	"encoding/json"
 	"errors"
-	//"fmt"
+	"fmt"
 	"io/ioutil"
     //"log"
 	"net/http"
@@ -53,6 +53,7 @@ func getAPIErrors(resp *http.Response) (err error) {
 }
 
 func get(reqUrl string, accessToken string) (data []byte, err error) {
+	fmt.Println(reqUrl)
 	resp, err := doRequest(reqUrl, "GET", accessToken)
 	if err != nil {
 		return nil, err
@@ -61,7 +62,7 @@ func get(reqUrl string, accessToken string) (data []byte, err error) {
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
-    //
+	//
 	// fmt.Printf("%q", dump)
 
 	body, err := ioutil.ReadAll(resp.Body)

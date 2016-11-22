@@ -25,7 +25,8 @@ func SetCredentialsFromEnv() {
         "PE_LIST_COLLECTION"        : "PE_LIST_COLLECTION",
         "PE_INFO_HOST_COLLECTION"   : "PE_INFO_HOST_COLLECTION",
         "PE_INFO_COLLECTION"        : "PE_INFO_COLLECTION",
-    	"PE_COLLECTION_DATA"        : "PE_COLLECTION_DATA",
+        "PE_COLLECTION_DATA"        : "PE_COLLECTION_DATA",
+    	"PE_COLLECTION_DATA_SQL"    : "PE_COLLECTION_DATA_SQL",
 	}
     for _, value := range Conf {
         Conf[value] = os.Getenv(value)
