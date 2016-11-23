@@ -160,7 +160,7 @@ func GetCollectionDataWithQuery(accessToken string, id_collection string, query 
 	if err != nil {
 		return result, errors.New("Service response is unidentified")
 	}
-	result := fromJSON.(map[string]interface{})["result"].(map[string]interface{})["records"]
+	result = fromJSON.(map[string]interface{})["result"].(map[string]interface{})["records"]
 	return
 }
 
