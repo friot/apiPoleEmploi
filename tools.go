@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-    //"log"
+//    "log"
 	"net/http"
-    //"net/http/httputil"
+//    "net/http/httputil"
 	"strconv"
 )
 
@@ -55,6 +55,27 @@ func getAPIErrors(resp *http.Response) (err error) {
 func get(reqUrl string, accessToken string) (data []byte, err error) {
 	fmt.Println(reqUrl)
 	resp, err := doRequest(reqUrl, "GET", accessToken)
+	if err != nil {
+		return nil, err
+	}
+    // dump, err := httputil.DumpResponse(resp, true)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	//
+	// fmt.Printf("%q", dump)
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, errors.New("Service response is unidentified")
+	}
+	defer resp.Body.Close()
+	return body, nil
+}
+
+func post(reqUrl string, accessToken string) (data []byte, err error) {
+	fmt.Println(reqUrl)
+	resp, err := doRequest(reqUrl, "POST", accessToken)
 	if err != nil {
 		return nil, err
 	}

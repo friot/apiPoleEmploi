@@ -48,6 +48,18 @@ type JSONDataLink struct {
     Next string `json:"next"`
 }
 
+type JSONCount struct {
+    Result JSONResultCount `json:"result"`
+}
+
+type JSONResultCount struct {
+    Records []JSONRecordCount `json:"records"`
+}
+
+type JSONRecordCount struct {
+	Count string `json:"count"`
+}
+
 type JSONPoleEmploiToken struct {
     Scope           string  `json:"digidata"`
     Expires_in      int     `json:"expires_in"`
