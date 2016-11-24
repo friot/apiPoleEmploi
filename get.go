@@ -124,6 +124,28 @@ func GetCollectionDataWithQuery(id_collection string, query string, toSelect str
 	return
 }
 
+func GetCollectionJSONWithQueryAndToken(id_collection string, query string, toSelect string, accessToken string) (result []byte, err error) {
+	var Url *url.URL
+	Url, err = url.Parse("https://api.emploi-store.fr")
+	if err != nil {
+		fmt.Println(err)
+		return result, err
+	}
+	Url.Path += "/api/action/datastore_search_sql"
+	parameters := url.Values{}
+	parameters.Add("sql", "SELECT " + toSelect + " from \"" + id_collection + "\" " + query)
+	Url.RawQuery = parameters.Encode()
+	dataUrl := Url.String()
+	data, err := getWithToken(dataUrl, accessToken)
+	if err != nil {
+		return result, errors.New("Data doesn't exist")
+	}
+    // var out bytes.Buffer
+	// json.Indent(&out, data, "=", "\t")
+	// out.WriteTo(os.Stdout)
+	return data, nil
+}
+
 func CountCollectionDataWithQuery(id_collection string, query string, toSelect string) (result int, err error) {
 	var Url *url.URL
 	Url, err = url.Parse("https://api.emploi-store.fr")

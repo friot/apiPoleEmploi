@@ -52,6 +52,27 @@ func getAPIErrors(resp *http.Response) (err error) {
 	return errors.New(errMessage)
 }
 
+func getWithToken(reqUrl string, accessToken string) (data []byte, err error) {
+	resp, err := doRequest(reqUrl, "GET", accessToken)
+	if err != nil {
+		return nil, err
+	}
+    // dump, err := httputil.DumpResponse(resp, true)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	//
+	// fmt.Printf("%q", dump)
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, errors.New("Service response is unidentified")
+	}
+	defer resp.Body.Close()
+	return body, nil
+}
+
+
 func get(reqUrl string) (data []byte, err error) {
 	accessToken, err := Authenticate()
 	if err != nil {
