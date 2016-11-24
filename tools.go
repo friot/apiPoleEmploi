@@ -52,8 +52,12 @@ func getAPIErrors(resp *http.Response) (err error) {
 	return errors.New(errMessage)
 }
 
-func get(reqUrl string, accessToken string) (data []byte, err error) {
-	fmt.Println(reqUrl)
+func get(reqUrl string) (data []byte, err error) {
+	accessToken, err := Authenticate()
+	if err != nil {
+		fmt.Println("Unable to get token")
+		return nil, err
+	}
 	resp, err := doRequest(reqUrl, "GET", accessToken)
 	if err != nil {
 		return nil, err
